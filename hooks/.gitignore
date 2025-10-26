@@ -1,0 +1,9 @@
+tsconfig.tsbuildinfo  
+node_modules/
+dist/
+/src/generated/prisma
+
+/[./src, prisma.config.ts]/generated/prisma
+
+/src/generated/prisma
+.env
