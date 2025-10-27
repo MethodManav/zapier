@@ -13,3 +13,36 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  name       String?
+  createdAt  DateTime @default(now())
+  isVerified Boolean  @default(false)
+  Zap        Zap[]
+}
+
+model Zap {
+  id        Int       @id @default(autoincrement())
+  name      String
+  userId    Int
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id])
+  Trigger   Trigger[]
+}
+
+model Trigger {
+  id             Int     @id @default(autoincrement())
+  AppName        AppType
+  event          String
+  Authentication String
+  Zap            Zap?    @relation(fields: [zapId], references: [id])
+  zapId          Int?
+}
+
+enum AppType {
+  GMAIL
+  GOOGLE_SHEETS
+  GITHUB
+}

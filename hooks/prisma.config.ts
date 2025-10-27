@@ -1,4 +1,9 @@
 import { defineConfig, env } from "prisma/config";
+import dotenv from "dotenv";
+import path from "path";
+
+// Explicitly load .env file in hooks directory
+dotenv.config({ path: path.resolve(__dirname, ".env") });
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
