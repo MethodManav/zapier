@@ -24,25 +24,42 @@ model User {
 }
 
 model Zap {
-  id        Int       @id @default(autoincrement())
-  name      String
+  id        String   @id @default(uuid())
+  triggerId String
   userId    Int
-  createdAt DateTime  @default(now())
-  user      User      @relation(fields: [userId], references: [id])
-  Trigger   Trigger[]
+  trigger   Trigger?
+  actions   Action[]
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model Trigger {
-  id             Int     @id @default(autoincrement())
-  AppName        AppType
-  event          String
-  Authentication String
-  Zap            Zap?    @relation(fields: [zapId], references: [id])
-  zapId          Int?
+  id        String           @id @default(uuid())
+  zapId     String           @unique
+  triggerId String
+  metadata  Json             @default("{}")
+  type      AvailableTrigger @relation(fields: [triggerId], references: [id])
+  zap       Zap              @relation(fields: [zapId], references: [id])
 }
 
-enum AppType {
-  GMAIL
-  GOOGLE_SHEETS
-  GITHUB
+model Action {
+  id           String          @id @default(uuid())
+  zapId        String
+  zap          Zap             @relation(fields: [zapId], references: [id])
+  actionId     String
+  metadata     Json            @default("{}")
+  type         AvailableAction @relation(fields: [actionId], references: [id])
+  sortingOrder Int             @default(0)
+}
+
+model AvailableTrigger {
+  id      String    @id @default(uuid())
+  name    String
+  trigger Trigger[]
+}
+
+model AvailableAction {
+  id      String   @id @default(uuid())
+  name    String
+  image   String
+  actions Action[]
 }
