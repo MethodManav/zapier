@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@zap/hooks": "workspace:*"
+    "@zap/hooks": "workspace:*",
+    "kafkajs": "^2.2.4"
   }
 }
