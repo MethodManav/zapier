@@ -3,7 +3,6 @@ import type { Request, Response } from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./model/DB.js";
 import mongoose from "mongoose";
-import Zap from "./model/Zap.js";
 import { ZapRun, ZapRunOutbox } from "./model/ZapRun.js";
 
 dotenv.config();
@@ -50,3 +49,4 @@ async function startServer() {
 }
 
 startServer();
+export * from "./model/main.js";
