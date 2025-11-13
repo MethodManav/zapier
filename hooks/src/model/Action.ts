@@ -5,6 +5,7 @@ export interface IAction {
   AvailableAction: Types.ObjectId;
   event: IEvent;
   zapId: Types.ObjectId;
+  sortingOrder: number;
 }
 
 const ActionSchema = new Schema<IAction>({
@@ -18,6 +19,7 @@ const ActionSchema = new Schema<IAction>({
     eventId: { type: String, required: true },
   },
   zapId: { type: Schema.Types.ObjectId, ref: "Zap", required: true },
+  sortingOrder: { type: Number, required: true },
 });
 
 export const ActionModel = {
